@@ -1,0 +1,12 @@
+# Obscura terminal look. No colors here: Noctalia's alacritty theme supplies them.
+[window]
+opacity = 1.0
+dynamic_padding = true
+padding = { x = 10, y = 8 }
+
+[font]
+normal = { family = "Geist Mono", style = "Regular" }
+bold = { family = "Geist Mono", style = "Bold" }
+italic = { family = "Geist Mono", style = "Regular" }
+bold_italic = { family = "Geist Mono", style = "Bold" }
+size = 11.5
