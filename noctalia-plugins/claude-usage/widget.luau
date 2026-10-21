@@ -23,7 +23,7 @@ local function describe(win, now)
   local p = pct(win, now)
   if p == nil then return "no data" end
   if win.resets_at ~= nil and win.resets_at > now then
-    return `{p}%  -  resets in {span(win.resets_at - now)}`
+    return `{p}% · {span(win.resets_at - now)}`
   end
   return `{p}%`
 end
@@ -54,8 +54,8 @@ function update()
   local age = now - (data.updated or now)
   local fresh = age < 90 and "just now" or `{span(age)} ago`
   barWidget.setTooltip({
-    { key = "Weekly (7-day)", value = describe(data.seven_day, now) },
-    { key = "5-hour", value = describe(data.five_hour, now) },
+    { key = "Weekly · resets", value = describe(data.seven_day, now) },
+    { key = "5-hour · resets", value = describe(data.five_hour, now) },
     { key = "Updated", value = fresh },
   })
 end
