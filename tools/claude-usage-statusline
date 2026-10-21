@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# Claude Code status line hook: saves the subscription rate limits for the Noctalia bar widget.
+# Claude Code pipes a JSON blob to stdin; we keep the 5-hour and 7-day windows and print a short line.
+set -euo pipefail
+out="${XDG_CACHE_HOME:-$HOME/.cache}/obscura"
+mkdir -p "$out"
+input="$(cat)"
+printf '%s' "$input" > "$out/claude-statusline-last.json"   # raw payload, for debugging
+
+jq -c --argjson now "$(date +%s)" '{
+  updated: $now,
+  five_hour: (.rate_limits.five_hour // null),
+  seven_day: (.rate_limits.seven_day // null)
+}' <<<"$input" > "$out/claude-usage.json.tmp" && mv "$out/claude-usage.json.tmp" "$out/claude-usage.json"
+
+jq -r '
+  def pct: if . == null then "–" else "\(. | floor)%" end;
+  "\(.model.display_name // "Claude")  5h \(.rate_limits.five_hour.used_percentage | pct)  7d \(.rate_limits.seven_day.used_percentage | pct)"
+' <<<"$input"

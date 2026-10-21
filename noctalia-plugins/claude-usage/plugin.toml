@@ -1,0 +1,18 @@
+# Bar widget: Claude subscription usage. Shows the 5-hour limit in the bar and the
+# weekly limit on hover. Reads ~/.cache/obscura/claude-usage.json, which the
+# claude-usage-statusline hook writes (see ../../tools/claude-usage-statusline).
+
+id = "obscuratea/claude-usage"
+name = "Claude Usage"
+version = "1.0.0"
+plugin_api = 32
+author = "Obscuratea"
+license = "MIT"
+dependencies = []
+tags = ["claude", "usage", "monitor"]
+icon = "gauge"
+description = "Shows your Claude 5-hour usage limit in the bar, and the weekly limit on hover."
+
+[[widget]]
+id = "usage"
+entry = "widget.luau"
